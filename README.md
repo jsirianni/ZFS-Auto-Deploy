@@ -4,6 +4,10 @@
 
 Deploy ZFS on Linux + SAMBA
 
+*** WARNING ****
+This script will reboot your machine
+
+
 The purpose of this script is to make installing ZoL (ZFS on Linux), SAMBA (native file sharing for Windows enviroments)
 and email alerts much easier. Currently the script is hardcoded to fit specific use cases, however in the future I plan
 to add the abilty to configure a "setup" file with variables such as "hostname, zfs raid type, numbers of drives, samba
