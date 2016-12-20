@@ -1,77 +1,57 @@
 #!/bin/bash
 cd $(dirname $0)
-##########################################################################
-##########################################################################
 # Author: Joe Sirianni unless otherwise stated
-# 12-15-2016
-# ZFS_Ubuntu16_Deployment v.0.0.1
-#
-# This script is used to deploy ZFS on linux.
-# This script is NOT universal (yet) and requires
-# some lines to be hardcoded to the specific
-# deployment (zpool creation for example)
-#
-# Features
-#  - ZFS Installatin and configuration    (hardcoded configuration)
-#     - Zpool creation and mounting
-#     - Zpool auto-snapshots enabled
-#     - Zpool auto-scrub enabled
-#  - SAMBA installation and configuration (hardcoded configuration)
-#  - GMAIL email alerts for ZFS           (Thanks to Josef Jezek)
-#  - HTOP & IOTOP for system monitoring
-#  - Installation of system updates
-#
-# Future Features
-#  - User input used instead of all hardcoded features
-#  - unattended installation
-#     - ability to pre-assign variables
-#
-############################################################################
-############################################################################
-#
-#
-#install updates
+# Data: 12-15-2016
+# Version: 0.0.2-beta
+
+
+# enable repos & install updates
+sudo add-apt-repository ppa:bob-ziuchkovski/zfs-auto-snapshot -y
 sudo apt-get update && sudo apt-get -y dist-upgrade
-#
+
+
 #install required software packages
-sudo apt-get -y install htop iotop zfsutils-linux samba msmtp-mta ca-certificates heirloom-mailx
-#
+sudo apt-get -y install unzip make htop iotop zfsutils-linux zfs-auto-snapshot samba msmtp-mta ca-certificates heirloom-mailx
+
+
 #create & mount zpool (zpool name and drive selection is hardcoded)
 sudo mkdir /mnt/zfs
 sudo zpool create -f datastore raidz2 /dev/sdb /dev/sdc /dev/sdd /dev/sde
 sudo zfs create -o mountpoint=/mnt/zfs datastore/data
-# Enable zfs auto snapshots
-# Weekly snapshots are held for seven weeks
-# Daily snapshots are held for 30 days
-# Hourly snapshots are held for 24 hours
-# This configuration allows for data to be held for seven weeks
-sudo add-apt-repository -y ppa:zfs-native/stable; sudo apt-get install -y zfs-auto-snapshot
-sudo zfs set com.sun:auto-snapshot=true datastore
-sudo zfs set com.sun:auto-snapshot:monthly=false datastore
-sudo zfs set com.sun:auto-snapshot:weekly=true datastore
-sudo zfs set com.sun:auto-snapshot:daily=true datastore
-sudo zfs set com.sun:auto-snapshot:hourly=true datastore
-sudo zfs set com.sun:auto-snapshot:frequent=false datastore
-#
-#
+
+
+# Disable top level snapshots & enable weekly, daily, hourly, frequent snapshots for mounted zpool
+sudo zfs set com.sun:auto-snapshot=false datastore
+sudo zfs set com.sun:auto-snapshot=true datastore/data
+sudo zfs set com.sun:auto-snapshot:monthly=false datastore/data
+sudo zfs set com.sun:auto-snapshot:weekly=true datastore/data
+sudo zfs set com.sun:auto-snapshot:daily=true datastore/data
+sudo zfs set com.sun:auto-snapshot:hourly=true datastore/data
+sudo zfs set com.sun:auto-snapshot:frequent=false datastore/data
+
+
+# Enable zfs auto scrub - Scrub at 3AM every sunday
+sudo mkdir /etc/zfs_scrub
+sudo touch /etc/zfs_scrub/scrub.sh
+sudo chmod 777 /etc/zfs_scrub/scrub.sh
+echo "#!/bin/bash" >> /etc/zfs_scrub/scrub.sh
+echo "#When called, this script scrubs the datastore zpool" >> /etc/zfs_scrub/scrub.sh
+echo "sudo zpool scrub datastore" >> /etc/zfs_scrub/scrub.sh
+line="1 3 * * 7 /etc/zfs_scrub/scrub.sh"
+(sudo crontab -u root -l; echo "$line" ) | sudo crontab -u root -
+
+
 #configure SAMBA network share
-echo "***************************************************************"
-echo "***************************************************************"
-echo
-echo "CREATING SAMBA USER FOR NETWORK ACCESS"
-echo "PLEASE PROVIDE A PASSWORD"
-echo
-echo "***************************************************************"
-echo "***************************************************************"
 sudo adduser sambauser
 sudo chown -R sambauser:sambauser /mnt/zfs
 sudo mv /etc/samba/smb.conf /etc/samba/smb.conf.old
 sudo cp smb.conf /etc/samba/smb.conf
-(echo password; echo password) | sudo smbpasswd -a sambauser
+(echo password; echo password) | sudo smbpasswd -a sambauser  //to be used later with variables
+sudo smbpasswd sambauser
 sudo service smbd restart
 sudo service nmbd restart
-#
-#
+
+
 ##############################################################################
 #configure mail alerts
 # Sending emails using Gmail and msmtp
@@ -140,30 +120,16 @@ __EOF
 echo "I have sent you a mail to $GMAIL_USER"
 echo "This will confirm that the configuration is good."
 echo "Please check your inbox at gmail."
-###############################################################################
-###############################################################################
-#
-#
+
+
 # Enable ZFS email alerts
 sudo mv /etc/zfs/zed.d/zed.rc /etc/zfs/zed.d/zed.rc.old
 sudo cp zed.rc /etc/zfs/zed.d/zed.rc
 sudo chown root:root /etc/zfs/zed.d/zed.rc
 sudo chmod 600 /etc/zfs/zed.d/zed.rc
 sudo chmod +r /etc/zfs/zed.d/zed.rc
-sudo service zed enabled
 sudo service zed restart
-#
-# Enable zfs auto scrub - Scrub at 1AM every sunday
-sudo mkdir /etc/zfs_scrub
-sudo touch /etc/zfs_scrub/scrub.sh
-sudo chmod 777 /etc/zfs_scrub/scrub.sh
-echo "#!/bin/bash" >> /etc/zfs_scrub/scrub.sh
-echo "#When called, this script scrubs the datastore zpool" >> /etc/zfs_scrub/scrub.sh
-echo "sudo zpool scrub datastore" >> /etc/zfs_scrub/scrub.sh
-line="0 1 * * 0 /etc/zfs_scrub/scrub.sh"
-(crontab -u teamit -l; echo "$line" ) | crontab -u teamit -
-#
-# Reboot
-sudo shutdown -r now
-#
 
+##########################################################################################################
+###################### END EMAIL ALERTS WITH GMAIL #######################################################
+##########################################################################################################
