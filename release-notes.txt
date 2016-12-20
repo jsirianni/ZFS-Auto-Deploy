@@ -1,1 +1,22 @@
 
+**********************************************************************************************
+Release notes v0.5.0
+
+Pool creation is hardcoded, change lines 18-20
+Zpool snapshot configuration is hardcoded, lines 24-30
+Zpool cron job set for 3am Sunday. Change on lines 38 and 40 to reflect name of pool and time.
+Samba Configuration is hardcoded, adjust lines 45 - 55
+
+This release focuses on making auto snapshots and auto scrub working as well as some misc. code cleanup. Expect version 1.0 to offer variables either through prompts or a configuration section. My goal is for version 1.0 to offer a flexible install to match environments with varying number of drives and pool requirements as allowing the user to easily set variables such as ‘samba user’ and ‘samba password’.
+**********************************************************************************************
+
+**********************************************************************************************
+Release notes v0.0.1
+
+The purpose of this script is to make installing ZoL (ZFS on Linux), SAMBA (native file sharing for Windows enviroments)
+and email alerts much easier. Currently the script is hardcoded to fit specific use cases, however in the future I plan
+to add the abilty to configure a "setup" file with variables such as "hostname, zfs raid type, numbers of drives, samba
+user name, email alert username, and so on".
+
+The current version is v0.0.1. The scirpt fits a specific use case that I currently need but could easily be adopted to
+fit other enviroments. It simply makes deploying ZFS + SAMBA with email alerts much easier than going command by command.
