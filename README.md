@@ -48,8 +48,4 @@ How to install
 
 
  # BUG LIST #
- zfs auto snapshots do not work
-  - this is an easy fix. Expect auto snapshots to be fully supported in v0.0.2
-
-  zfs auto scrub does not work
-   - another easy fix. Expect it to be fully supported in v0.0.2
+  - Email alers may not work when zpool changes to 'degraded' mode
