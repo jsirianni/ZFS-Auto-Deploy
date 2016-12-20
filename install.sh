@@ -1,8 +1,8 @@
 #!/bin/bash
 cd $(dirname $0)
 # Author: Joe Sirianni unless otherwise stated
-# Data: 12-15-2016
-# Version: 0.0.2-beta
+# Data: 12-19-2016
+# Version: 0.5.0
 
 
 # enable repos & install updates
