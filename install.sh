@@ -46,7 +46,7 @@ sudo adduser sambauser
 sudo chown -R sambauser:sambauser /mnt/zfs
 sudo mv /etc/samba/smb.conf /etc/samba/smb.conf.old
 sudo cp smb.conf /etc/samba/smb.conf
-(echo password; echo password) | sudo smbpasswd -a sambauser  //to be used later with variables
+(echo password; echo password) | sudo smbpasswd -a sambauser 
 sudo service smbd restart
 sudo service nmbd restart
 
