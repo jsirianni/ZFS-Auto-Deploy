@@ -10,6 +10,7 @@ How to install
   - edit the 'install.sh' script to fit your enviroment
   - make 'install.sh' executable with 'chmod +x install.sh'
   - execute 'install.sh'
+  - edit zed.rc file directive 'ZED_EMAIL_ADDRESS' to include the recipient email
   - You will be prompted four times for required information
       - samba password for the samba user "sambauser"
       - samba password comfirmation
@@ -17,6 +18,7 @@ How to install
           - this email is what the system uses to SEND alerts
               - you should use a throw away / dumby email because the password is stored in plain text!!!
       - email password
+   
 
  When the script is finished, you will have your zpool setup, SAMBA configured with 'sambauser' and the password you specified
  The zpool will be mounted in /mnt/data and be fully useable by the samba user.
