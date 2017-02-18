@@ -1,3 +1,11 @@
+**********************************************************************************************
+Release notes v1.0.0
+
+Removed support for samba creation.
+Divided each feature up into its own script.
+
+This update focuses on cleaning up the scripts and making it more user friendly.
+It is much easier for the user to find and edit required lines to fit their enviroment.
 
 **********************************************************************************************
 Release notes v0.5.0
