@@ -1,5 +1,6 @@
 #!/bin/bash
 cd $(dirname $0)
+# Version 1.0.0
 
 #
 # Important: Edit ZPOOL CREATION section to fit
