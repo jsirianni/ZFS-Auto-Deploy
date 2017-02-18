@@ -35,6 +35,6 @@ sudo zfs create -o mountpoint=/mnt/zfs datastore/data
 # OPTIONAL FEATURES      #
 # UNCOMMENT TO USE       #
 ##########################
-# sudo ./zfs-auto-snapshot.sh
-# sudo ./zfs-auto-scrub.sh
-# sudo ./zfs-gmail-alerts.sh
+# sudo sh auto-snapshot.sh
+# sudo sh auto-scrub.sh
+# sudo sh gmail-alerts.sh
