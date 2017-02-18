@@ -3,6 +3,14 @@ Joseph Sirianni
 12-16-2016
 Version 1.0.0
 
+Supported OS
+  - Ubuntu 16.04 (Officially tested)
+  - Debian / Ubuntu (Not tested, may work)
+  
+Prerequisites
+  - Package: Sudo
+  - Execute as root or sudo user
+
 Features
   - Install zfs on linux
   - Optional: Install zfs auto snapshots
