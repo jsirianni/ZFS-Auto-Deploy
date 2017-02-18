@@ -1,7 +1,7 @@
 zfs-auto-deploy
 Joseph Sirianni
 12-16-2016
-Version 0.5.0
+Version 1.0.0
 
 Features
   - Install zfs on linux
