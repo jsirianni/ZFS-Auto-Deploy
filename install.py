@@ -1,26 +1,12 @@
 #!/usr/bin/env python
+import os
+
 #
 # Install ZFS On Linux
 #
 # Version 0.0.1
 # Joseph Sirianni
 #
-
-
-#
-# Variables to be used for ZFS configuration
-#
-zpool_name = "datastore"
-number_of_drives = 0
-raid_type = "mirror"    # default RAID1
-
-
-#
-# Boolean variables to enable or disable features
-#
-auto_scrub = False
-auto_snapshot = False
-gmail_alerts = False
 
 
 #
@@ -34,7 +20,7 @@ print("\nTo contribute, visit GITHUBLINKHERE or email me at Joseph.Sirianni88@gm
 # Prompt user for zpool name
 #
 print("\n\n\n\nConfigure ZFS Specifications\n")
-zpool_name = raw_input("\nInput Zpool name: ")
+zpool_name = str(input("\nInput Zpool name: "))
 
 
 #
@@ -49,14 +35,14 @@ while raid_type < 0 or raid_type > 5:
     print("3 = raidz1 = minimum of three drives")
     print("4 = raidz2 = minimum of four drives")
     print("5 = raidz3 = minimum of five drives")
-    raid_type = input("\nInput RAID type: ")
+    raid_type = int(input("\nInput RAID type: "))
 
 if raid_type == 0:
     selected_raid_type = "raid0"
 elif raid_type == 1:
-    selected_raid_type = "raid1"
+    selected_raid_type = "mirror"
 elif raid_type == 2:
-    selected_raid_type = "raid10"
+    selected_raid_type = "mirror" # ZFS stripes multiple mirros, aka raid10
 elif raid_type == 3:
     selected_raid_type = "raidz1"
 elif raid_type == 4:
@@ -68,46 +54,71 @@ elif raid_type == 5:
 #
 # Prompt user for drives to use
 #
-select_drives = True
 drive_set_1 = ""
 number_of_drives = 0
 
-print("\n\nConfigure hard drives to use for ZFS")
-print("Enter each drive one by one. Example: /dev/sdb")
+print("\n\n\nConfigure hard drives to use for ZFS")
+print("\nEnter each drive one by one. Example: /dev/sdb")
 print("Enter 'done' when done selecting drives")
+print("Enter 'list' if you need a list of drives")
 
-while select_drives == True:
-    drive = raw_input("\nEnter drive: ")
+while 1 == 1:
+    # Input a drive
+    drive = str(input("\nEnter drive: "))
+
+    # Print list of drives if user enters "list"
+    if drive == "list":
+        os.system("sudo lsblk")
+        continue
+
+    # If user enters a drive, add it to the set
     if drive != "done":
         drive_set_1 += (drive + " ")
         number_of_drives += 1
+        continue
+
+    # If user enters "done", check if drive list is compatable with raid type
     else:
-        #
-        # Validate raid type
-        #
         if raid_type == 0 and number_of_drives < 2:
             print("\nRAID0 requires at least two drives.")
-        if raid_type == 1 and number_of_drives < 2:
+            continue
+        elif raid_type == 1 and number_of_drives < 2:
             print("\nRAID1 requires at least two drives.")
-        elif raid_type == 2 and number_of_drives < 4:
-            print("\nRAID10 requires at least four drives.")
+            continue
         elif raid_type == 3 and number_of_drives < 3:
             print("\nRAIDZ1 requires at least three drives.")
+            continue
         elif raid_type == 4 and number_of_drives < 4:
             print("\nRAIDZ2 requires at least four drives.")
+            continue
         elif raid_type == 5 and number_of_drives < 5:
             print("\nRAIDZ3 requires at least five drives.")
-        else: # RAID validation passed, continue.
-            select_drives = False
+            continue
+        elif raid_type == 2 and number_of_drives < 4:
+            print("\nRAID10 requires at least four drives.")
+            continue
+        # If raid10, check if even number of drives
+        elif raid_type == 2:
+            d = (number_of_drives // 2)
+            d = (d * 2)
+            if d != number_of_drives:
+                print("\nRAID10 requires an even amount of drives")
+                continue
+            else:
+                break
+        # If all validation passes, break loop.
+        else:
+            break
 
 
 #
 # Prompt user for feature selection
 #
-print("\n\n\n\nAnswer True or False to enable or disable features\n")
-auto_scrub = input("\nEnable or disable ZFS Auto Scrub: ")
-auto_snapshot = input("\nEnable or disable ZFS Auto Snapshots: ")
-gmail_alerts = input("\nEnable or Disable Gmail Email Alerts: ")
+print("\n\n\n\nAnswer 'True' or 'False' to enable or disable features\n")
+create_datasets = bool(input("\nCreate ZFS datasets and mount points? "))
+auto_scrub = bool(input("\nZFS Auto Scrub: "))
+auto_snapshot = bool(input("\nZFS Auto Snapshots: "))
+gmail_alerts = bool(input("\nGmail Email Alerts: "))
 
 
 #
@@ -120,8 +131,10 @@ print("Drives to use: " + drive_set_1)
 print("Raid Type: " + selected_raid_type)
 
 print("\n\nZFS Enabled Features Summary")
+if create_datasets == True:
+    print("\nDatasets will be created interactively during deployment")
 if auto_scrub == True:
-    print("\nZFS Auto Scrub Enabled")
+    print("ZFS Auto Scrub Enabled")
 if auto_snapshot == True:
     print("ZFS Auto Snapshots Enabled")
 if gmail_alerts == True:
@@ -131,8 +144,47 @@ if gmail_alerts == True:
 #
 #  Prompt user for comfirmation
 #
-verify_config = input("\n\nIs the above configuration correct? Answer True or False: ")
+verify_config = bool(input("\n\nIs the above configuration correct? Answer True or False: "))
 if verify_config == True:
-    print("\nInstalling and configuring ZFS\n")
+
+    #
+    # Run ZFS installer and create zpool
+    #
+    os.system("sudo apt-get update")
+    os.system("sudo apt-get install -y zfsutils-linux")
+    os.system("sudo zpool create -f " + zpool_name + " " + selected_raid_type + " " + drive_set_1)
+
+    #
+    # Install features
+    #
+    #
+    # Create datasets and mount them
+    #
+    while create_datasets != False:
+        dataset = str(input("\n\nEnter a dataset name for " + zpool_name + ": "))
+        mount_dir = str(input("Enter mount point for " + zpool_name + "/" + dataset + ": "))
+        os.system("sudo mkdir " + mount_dir)
+        os.system("sudo zfs create -o mountpoint=" + mount_dir + " " + zpool_name + "/" + dataset)
+        create_datasets = bool(input("\nCreate another dataset? Enter True or False: "))
+
+    #
+    # Execute auto scrub script`
+    #
+    if auto_scrub == True:
+        os.system("sudo sh auto-scrub.sh")
+
+    if auto_snapshot == True:
+        os.system("sudo sh auto-snapshot.sh")
+
+    #
+    # Execute email alerts interactvie script
+    #
+    if gmail_alerts == True:
+        os.system("sudo sh gmail-alerts.sh")
+
+
+#
+# User did not commit to configuration, abort`
+#
 else:
     print("\nUser aborted the setup\n")
