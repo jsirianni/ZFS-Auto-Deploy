@@ -4,7 +4,7 @@ cd $(dirname $0)
 # Enable zfs auto scrub - Scrub at 3AM every sunday
 sudo mkdir /etc/zfs_scrub
 sudo touch /etc/zfs_scrub/scrub.sh
-sudo chmod 777 /etc/zfs_scrub/scrub.sh
+sudo chmod 700 /etc/zfs_scrub/scrub.sh
 echo "#!/bin/bash" >> /etc/zfs_scrub/scrub.sh
 echo "#When called, this script scrubs the datastore zpool" >> /etc/zfs_scrub/scrub.sh
 echo "sudo zpool scrub datastore" >> /etc/zfs_scrub/scrub.sh
