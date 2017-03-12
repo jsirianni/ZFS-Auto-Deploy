@@ -115,10 +115,30 @@ while 1 == 1:
 # Prompt user for feature selection
 #
 print("\n\n\n\nAnswer 'True' or 'False' to enable or disable features\n")
-create_datasets = bool(input("\nCreate ZFS datasets and mount points? "))
-auto_scrub = bool(input("\nZFS Auto Scrub: "))
-auto_snapshot = bool(input("\nZFS Auto Snapshots: "))
-gmail_alerts = bool(input("\nGmail Email Alerts: "))
+
+create_datasets = input("\nCreate ZFS datasets and mount points? ")
+if create_datasets == "True":
+    create_datasets = True
+else:
+    create_datasets = False
+
+auto_scrub = input("\nZFS Auto Scrub: ")
+if auto_scrub == "True":
+    auto_scrub = True
+else:
+    auto_scrub = False
+
+auto_snapshot = input("\nZFS Auto Snapshots: ")
+if auto_snapshot == "True":
+    auto_snapshot = True
+else:
+    auto_snapshot = False
+
+gmail_alerts = input("\nGmail Email Alerts: ")
+if gmail_alerts == "True":
+    gmail_alerts = True
+else:
+    gmail_alerts = False
 
 
 #
@@ -144,9 +164,17 @@ if gmail_alerts == True:
 #
 #  Prompt user for comfirmation
 #
-verify_config = bool(input("\n\nIs the above configuration correct? Answer True or False: "))
-if verify_config == True:
+verify_config = input("\n\nIs the above configuration correct? Answer True or False: ")
+if verify_config == "True":
+    verify_config = True
+else:
+    verify_config = False
 
+
+#
+# Execute configuration
+#
+if verify_config == True:
     #
     # Run ZFS installer and create zpool
     #
@@ -160,13 +188,14 @@ if verify_config == True:
     #
     # Create datasets and mount them
     #
-    while create_datasets != False:
+    while create_datasets:
         dataset = str(input("\n\nEnter a dataset name for " + zpool_name + ": "))
         mount_dir = str(input("Enter mount point for " + zpool_name + "/" + dataset + ": "))
         os.system("sudo mkdir " + mount_dir)
         os.system("sudo zfs create -o mountpoint=" + mount_dir + " " + zpool_name + "/" + dataset)
-        create_datasets = bool(input("\nCreate another dataset? Enter True or False: "))
-
+        create_more_datasets = input("\nCreate another dataset? Enter True or False: ")
+        if create_more_datasets != "True":
+            break
     #
     # Execute auto scrub script`
     #
