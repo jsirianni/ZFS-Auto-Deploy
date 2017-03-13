@@ -4,7 +4,7 @@ Joseph Sirianni
 Version 2.0.0
 
 Supported OS
-  - Ubuntu 16.04 (Officially tested)
+  - Ubuntu 16.04 w/ default kernel 4.4 (Officially tested)
   - Debian / Ubuntu (Not tested, may work)
   
 Prerequisites
