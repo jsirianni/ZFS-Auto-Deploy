@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 import os
-import auto-snapshot
+import auto_snapshot
+
 #
 # Install ZFS On Linux
 #
@@ -13,7 +14,8 @@ import auto-snapshot
 # Print Description
 #
 print("\n\n\n\nThis script will provide a guided setup for ZFS on Linux. Feel free to modify and distribute.")
-print("\nTo contribute, visit GITHUBLINKHERE or email me at Joseph.Sirianni88@gmail.com")
+print("\nTo contribute, visit 'https://github.com/jsirianni/zfs-auto-deploy' or email me at Joseph.Sirianni88@gmail.com")
+print("\nUser input should be either y (yes) or n (no) unless otherwise specified")
 
 
 #
@@ -117,30 +119,26 @@ while 1 == 1:
 
 
 #
-# Prompt user for feature selection
+# Prompt user for feature selection. Set boolean flags for feature enable/disable
 #
-print("\n\n\n\nAnswer 'True' or 'False' to enable or disable features\n")
+print("\n\n\n\nAnswer 'y' or 'n' to enable or disable features\n")
 
-create_datasets = input("\nCreate ZFS datasets and mount points? ")
-if create_datasets == "True":
+if input("\nCreate ZFS datasets and mount points? ") == "y":
     create_datasets = True
 else:
     create_datasets = False
 
-auto_scrub = input("\nZFS Auto Scrub: ")
-if auto_scrub == "True":
+if input("\nEnable ZFS Auto Scrub? ") == "y":
     auto_scrub = True
 else:
     auto_scrub = False
 
-auto_snapshot = input("\nZFS Auto Snapshots: ")
-if auto_snapshot == "True":
-    auto_snapshot = True
+if input("\nEnable ZFS Auto Snapshots? ") == "y":
+    enable_auto_snapshots = True
 else:
-    auto_snapshot = False
+    enable_auto_snapshots = False
 
-gmail_alerts = input("\nGmail Email Alerts: ")
-if gmail_alerts == "True":
+if input("\nEnable Gmail Email Alerts? ") == "y":
     gmail_alerts = True
 else:
     gmail_alerts = False
@@ -149,6 +147,7 @@ else:
 #
 # Print ZFS deployment summary.
 #
+os.system("clear")
 print("\n\n\n\nZFS Deployment Configuration Summary")
 print("\nZpool name: " + zpool_name)
 print("Number of drives: " + str(number_of_drives))
@@ -157,35 +156,40 @@ print("Raid Type: " + selected_raid_type)
 
 print("\n\nZFS Enabled Features Summary")
 if create_datasets == True:
-    print("\nDatasets will be created interactively during deployment")
+    print("\n# Datasets will be created interactively during deployment")
 if auto_scrub == True:
-    print("ZFS Auto Scrub Enabled")
-if auto_snapshot == True:
-    print("ZFS Auto Snapshots Enabled")
+    print("# ZFS Auto Scrub Enabled")
+if enable_auto_snapshots == True:
+    print("# ZFS Auto Snapshots Enabled")
 if gmail_alerts == True:
-    print("Gmail Email Alerts Enabled")
+    print("# Gmail Email Alerts Enabled")
 
 
 #
-#  Prompt user for comfirmation
+#  Prompt user for comfirmation, execute if true
 #
-verify_config = input("\n\nIs the above configuration correct? Answer True or False: ")
-if verify_config == "True":
-    verify_config = True
-else:
-    verify_config = False
-
-
-#
-# Execute configuration
-#
-if verify_config == True:
+if input("\n\nIs the above configuration correct? Answer 'y' or 'n': ") == "y":
     #
     # Run ZFS installer and create zpool
     #
+    # Setup required repos
+    if enable_auto_snapshots == True:
+        os.system("sudo add-apt-repository ppa:bob-ziuchkovski/zfs-auto-snapshot -y")
+
+    # Update repos
     os.system("sudo apt-get update")
-    os.system("sudo apt-get install -y zfsutils-linux")
+
+    # Install required packages
+    if enable_auto_snapshots == True:
+        os.system("sudo apt-get install -y zfsutils-linux zfs-auto-snapsho")
+        os.system("clear")
+    else:
+        os.system("sudo apt-get install -y zfsutils-linux")
+        os.system("clear")
+
+    # Create zpool
     os.system("sudo zpool create -f " + zpool_name + " " + selected_raid_type + " " + drive_set_1)
+
 
     #
     # Install features
@@ -194,15 +198,15 @@ if verify_config == True:
     # Create datasets and mount them
     #
     datasets = []
-    while create_datasets:
-        dataset = str(input("\n\nEnter a dataset name for " + zpool_name + ": "))
+    while create_datasets == True:
+        dataset = str(input("\n\nEnter a dataset name for zpool " + zpool_name + ": "))
         datasets.append(dataset)
         mount_dir = str(input("Enter mount point for " + zpool_name + "/" + dataset + ": "))
         os.system("sudo mkdir " + mount_dir)
         os.system("sudo zfs create -o mountpoint=" + mount_dir + " " + zpool_name + "/" + dataset)
-        create_more_datasets = input("\nCreate another dataset? Enter True or False: ")
-        if create_more_datasets != "True":
+        if input("\nCreate another dataset? Enter 'y' or 'n': ") != "y":
             break
+
 
     #
     # Execute auto scrub script`
@@ -210,38 +214,29 @@ if verify_config == True:
     if auto_scrub == True:
         os.system("sudo sh auto-scrub.sh")
 
+
     #
     # Configure zfs snapshots
     #
-    if auto_snapshot == True:
-        # Setup required repos
-        os.system("sudo add-apt-repository ppa:bob-ziuchkovski/zfs-auto-snapshot -y")
-        os.system("sudo apt-get update")
-        os.system("sudo apt-get install -y zfs-auto-snapshot")
-
+    if enable_auto_snapshots == True:
         # Setup zpool global snapshots (all datasets)
-        print("Setup zpool level (global) snapshots. Global snapshots will")
-        print("take a snapshot of the entire zpool (including all datasets)")
-        print("It is usually recomended to setup snapshots per dataset and leave ")
-        print("global snapshots disabled")
-        global_snapshots = input("\nSetup zpool level snapshots? 'True' or 'False': ")
-        if global_snapshots = "True":
-            auto-snapshot.global_snapshots(zpool_name)
+        print("\n\nSetup zpool level (global) snapshots. Global snapshots will take a snapshot of the entire zpool (including all datasets). It is usually recomended to setup snapshots per dataset and leave global snapshots disabled")
+
+        if input("\nSetup zpool (global) snapshots? 'y' or 'n': ") == "y":
+            auto_snapshot.enable(zpool_name)
         else:
-            auto-snapshot.disable(zpool_name)
+            auto_snapshot.disable(zpool_name)
 
         # Setup dataset level snapshots
-        dataset_snapshots = input("\nSetup snapshots for each dataset? 'True' or 'False'?: ")
-        if dataset_snapshots = "True":
-
+        if input("\nSetup snapshots for each dataset? 'y' or 'n': ") == "y":
             # Iterate through dataset list and setup snapshots
-            for dataset in datasets:
-                dataset = zpool_name + "/" + dataset
-                response = input("\nSetup snapshots for " dataset " dataset?")
-                if response == "True":
-                    auto-snapshot.global_snapshots(dataset)
+            for i in datasets:
+                i = (zpool_name + "/" + i)
+                if input("\nSetup snapshots for " + i + " dataset? ") == "y":
+                    auto_snapshot.enable(i)
                 else:
-                    auto-snapshot.disable(dataset)
+                    auto_snapshot.disable(i)
+
 
     #
     # Execute email alerts interactvie script
@@ -249,9 +244,15 @@ if verify_config == True:
     if gmail_alerts == True:
         os.system("sudo sh gmail-alerts.sh")
 
+    #
+    # End Program
+    #
+    os.system("clear")
+    print("\nzfs-auto-desploy has finished. Please report any bugs!")
 
 #
 # User did not commit to configuration, abort`
 #
 else:
-    print("\nUser aborted the setup\n")
+    os.system("clear")
+    print("\n\nUser aborted the setup\n")
