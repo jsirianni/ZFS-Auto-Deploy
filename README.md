@@ -8,39 +8,30 @@ Supported OS
   - Debian / Ubuntu (Not tested, may work)
   
 Prerequisites
-  - Package: Sudo
+  - Package: Sudo, python3
   - Execute as root or sudo user
 
 Features
-  - Install zfs on linux
-  - Optional: Install zfs auto snapshots
-  - Optional: Setup zfs auto scrub
+  - Interactive zfs on linux install
+  - Supports creation of multiple datasets
   - Optional: Setup zfs email alerts
 
 
 How to install
-  - git clone the repo to a directory of your choice (likely /tmp)
-  - edit the 'install.sh' script to fit your enviroment
-    - There are four files that need to be edited
-      - install.sh
-        - Configure mount directory
-        - Configure raid type
-        - Configure drives to use
-        - Configure zpool name and mount location
-     - auto-scrub.sh
+  - Git clone the repo to a directory of your choice (likely /tmp)
+  - Make install.py executable with "chmod +x install.py"
+    - There are two files that need to be edited
+     - auto-scrub.sh (Currently broken)
         - Configure cron job interval
-     - auto-snapshot.sh
-        - Configure datastore name
-        - Enable or disable snapshot types
      - zed.rc
         - Configure 'ZED_EMAIL_ADDRESS'
+        - Set ZED_EMAIL to the address that should recieve ZFS alerts
 
-  - make 'install.sh' executable with 'chmod +x install.sh'
-  - execute 'install.sh'
+  - Execute 'install.py'
 
-  - You will be prompted for sending email information
+  - Please note the following
       - email alerts sending email address
           - this email is what the system uses to SEND alerts
               - you should use a throw away / dumby email because the password is stored in plain text!!!
-      - email password
+              
       - It is important to note that the email specified in zed.rc can be a real email address. That is different from the sending email used by gmail-alerts.sh
