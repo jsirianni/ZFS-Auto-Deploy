@@ -1,13 +1,10 @@
 #!/bin/bash
 cd $(dirname $0)
 
-#
-# Old code commented out. ZOL now includes auto snapshots by default
-#
 # Add repo and install auto snapshots
-#sudo add-apt-repository ppa:bob-ziuchkovski/zfs-auto-snapshot -y
-#sudo apt-get update
-#sudo apt-get install -y zfs-auto-snapshot
+sudo add-apt-repository ppa:bob-ziuchkovski/zfs-auto-snapshot -y
+sudo apt-get update
+sudo apt-get install -y zfs-auto-snapshot
 
 
 # Disable top level snapshots & enable weekly, daily, hourly, frequent snapshots for mounted zpool
