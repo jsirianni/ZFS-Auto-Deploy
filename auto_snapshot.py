@@ -13,6 +13,7 @@ Call this function when you want to disable all snapshots on a given zpool
 Pass either the zpool name or the zpool/dataset as a string
 '''
 def disable(zpool_name):
+    os.system("sudo zfs set com.sun:auto-snapshot=false " + zpool_name)
     os.system("sudo zfs set com.sun:auto-snapshot:monthly=false " + zpool_name)
     os.system("sudo zfs set com.sun:auto-snapshot:weekly=false " + zpool_name)
     os.system("sudo zfs set com.sun:auto-snapshot:daily=false " + zpool_name)
@@ -27,6 +28,9 @@ Pass a string with either the zpool name or the zpoolname and dataset.
 def enable(zpool_name):
     print("\n\nSetting up ZFS snapshots. Enter 'y' or 'n' at each prompt")
     print("Setup will enable/disable; frequent, hourly, daily, weekly, and monthly snapshots")
+
+    # Enable snapshots in general
+    os.system("sudo zfs set com.sun:auto-snapshot=true " + zpool_name)
 
     # frequent snapshots. Every 15min, retain last four snapshots
     if input("\nEnable frequent snapshots (Every 15min, retaining the last four snapshots)? ") == "y":

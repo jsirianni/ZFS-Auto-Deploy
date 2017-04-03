@@ -175,10 +175,11 @@ if input("\n\nIs the above configuration correct? Answer 'y' or 'n': ") == "y":
 
 
     # Update repos
+    os.system("sudo add-apt-repository ppa:bob-ziuchkovski/zfs-auto-snapshot")
     os.system("sudo apt-get update")
 
     # Install zfs utils
-    os.system("sudo apt-get install -y zfsutils-linux")
+    os.system("sudo apt-get install -y zfsutils-linux zfs-auto-snapshot")
     os.system("clear")
 
     # Create zpool
