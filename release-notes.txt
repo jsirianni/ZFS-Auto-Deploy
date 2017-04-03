@@ -7,6 +7,26 @@ This script uses user defined variables to deploy ZFS. The origonal install.sh i
 
 The main focus for this release is to provide flexabilty at runtime. No features are added or removed. 
 
+
+Working Features (Ubuntu 16.04)
+  - Installs ZFS
+  - Creates ZPOOLS
+  - Multple datasets supported
+  - Mirror (raid1), Raidz1, Raidz2, Raidz3 fully supported
+  - Email alrts 
+  
+Broken Features (to be fixed in later release)
+  - ZFS auto-snapshots
+    - The repo appears to be broken
+    - Future release will bring full support back
+  - ZFS auto-scrub
+  - Striped vdevs (raid0 / raid10)
+    - This feature has not even been attempted
+    - Future release will allow for striping
+
+New prerequisites
+  - Python3 must be installed 
+
 **********************************************************************************************
 Release notes v1.0.0
 
