@@ -20,7 +20,7 @@ Features
 How to install
   - Git clone the repo to a directory of your choice (likely /tmp)
   - Make install.py executable with "chmod +x install.py"
-    - There are two files that need to be edited
+  - There are two files that need to be edited
      - auto-scrub.sh (Currently broken)
         - Configure cron job interval
      - zed.rc
