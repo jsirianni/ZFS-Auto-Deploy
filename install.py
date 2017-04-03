@@ -175,7 +175,7 @@ if input("\n\nIs the above configuration correct? Answer 'y' or 'n': ") == "y":
 
 
     # Update repos
-    os.system("sudo add-apt-repository ppa:bob-ziuchkovski/zfs-auto-snapshot")
+    os.system("sudo add-apt-repository ppa:bob-ziuchkovski/zfs-auto-snapshot -y")
     os.system("sudo apt-get update")
 
     # Install zfs utils
