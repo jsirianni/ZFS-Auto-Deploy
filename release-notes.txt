@@ -1,4 +1,33 @@
 **********************************************************************************************
+Release notes v2.0.0
+
+Added install.py python script for interactive install.
+
+This script uses user defined variables to deploy ZFS. The origonal install.sh is retained for those that prefer to set a script up for specific deployments.
+
+The main focus for this release is to provide flexabilty at runtime. No features are added or removed. 
+
+
+Working Features (Ubuntu 16.04)
+  - Installs ZFS
+  - Creates ZPOOLS
+  - Multple datasets supported
+  - Mirror (raid1), Raidz1, Raidz2, Raidz3 fully supported
+  - Email alrts 
+  
+Broken Features (to be fixed in later release)
+  - ZFS auto-snapshots
+    - The repo appears to be broken
+    - Future release will bring full support back
+  - ZFS auto-scrub
+  - Striped vdevs (raid0 / raid10)
+    - This feature has not even been attempted
+    - Future release will allow for striping
+
+New prerequisites
+  - Python3 must be installed 
+
+**********************************************************************************************
 Release notes v1.0.0
 
 Removed support for samba creation.
@@ -16,7 +45,6 @@ Zpool cron job set for 3am Sunday. Change on lines 38 and 40 to reflect name of 
 Samba Configuration is hardcoded, adjust lines 45 - 55
 
 This release focuses on making auto snapshots and auto scrub working as well as some misc. code cleanup. Expect version 1.0 to offer variables either through prompts or a configuration section. My goal is for version 1.0 to offer a flexible install to match environments with varying number of drives and pool requirements as allowing the user to easily set variables such as ‘samba user’ and ‘samba password’.
-**********************************************************************************************
 
 **********************************************************************************************
 Release notes v0.0.1
