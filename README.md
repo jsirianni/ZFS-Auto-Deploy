@@ -14,15 +14,16 @@ Prerequisites
 Features
   - Interactive zfs on linux install
   - Supports creation of multiple datasets
+  - ZFS-Auto-Snapshots
+    - Enable or disable global snapshots (entire zpool)
+    - Enable or disable dataset snapshots, for each dataset.
   - Optional: Setup zfs email alerts
 
 
 How to install
   - Git clone the repo to a directory of your choice (likely /tmp)
   - Make install.py executable with "chmod +x install.py"
-  - There are two files that need to be edited
-     - auto-scrub.sh (Currently broken)
-        - Configure cron job interval
+  - There is one file that need to be edited
      - zed.rc
         - Configure 'ZED_EMAIL_ADDRESS'
         - Set to the address that should recieve ZFS alerts
