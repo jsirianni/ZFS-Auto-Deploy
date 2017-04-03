@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 import os
 import auto_snapshot
 
@@ -172,20 +172,14 @@ if input("\n\nIs the above configuration correct? Answer 'y' or 'n': ") == "y":
     #
     # Run ZFS installer and create zpool
     #
-    # Setup required repos
-    if enable_auto_snapshots == True:
-        os.system("sudo add-apt-repository ppa:bob-ziuchkovski/zfs-auto-snapshot -y")
+
 
     # Update repos
     os.system("sudo apt-get update")
 
-    # Install required packages
-    if enable_auto_snapshots == True:
-        os.system("sudo apt-get install -y zfsutils-linux zfs-auto-snapsho")
-        os.system("clear")
-    else:
-        os.system("sudo apt-get install -y zfsutils-linux")
-        os.system("clear")
+    # Install zfs utils
+    os.system("sudo apt-get install -y zfsutils-linux")
+    os.system("clear")
 
     # Create zpool
     os.system("sudo zpool create -f " + zpool_name + " " + selected_raid_type + " " + drive_set_1)
