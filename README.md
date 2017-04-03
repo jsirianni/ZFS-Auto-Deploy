@@ -25,7 +25,7 @@ How to install
         - Configure cron job interval
      - zed.rc
         - Configure 'ZED_EMAIL_ADDRESS'
-        - Set ZED_EMAIL to the address that should recieve ZFS alerts
+        - Set to the address that should recieve ZFS alerts
 
   - Execute 'install.py'
 
