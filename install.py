@@ -128,10 +128,10 @@ if input("\nCreate ZFS datasets and mount points? ") == "y":
 else:
     create_datasets = False
 
-if input("\nEnable ZFS Auto Scrub? ") == "y":
-    auto_scrub = True
-else:
-    auto_scrub = False
+#if input("\nEnable ZFS Auto Scrub? ") == "y":
+#    auto_scrub = True
+#else:
+#    auto_scrub = False
 
 if input("\nEnable ZFS Auto Snapshots? ") == "y":
     enable_auto_snapshots = True
@@ -157,8 +157,8 @@ print("Raid Type: " + selected_raid_type)
 print("\n\nZFS Enabled Features Summary")
 if create_datasets == True:
     print("\n# Datasets will be created interactively during deployment")
-if auto_scrub == True:
-    print("# ZFS Auto Scrub Enabled")
+#if auto_scrub == True:
+#    print("# ZFS Auto Scrub Enabled")
 if enable_auto_snapshots == True:
     print("# ZFS Auto Snapshots Enabled")
 if gmail_alerts == True:
@@ -175,10 +175,11 @@ if input("\n\nIs the above configuration correct? Answer 'y' or 'n': ") == "y":
 
 
     # Update repos
+    os.system("sudo add-apt-repository ppa:bob-ziuchkovski/zfs-auto-snapshot -y")
     os.system("sudo apt-get update")
 
     # Install zfs utils
-    os.system("sudo apt-get install -y zfsutils-linux")
+    os.system("sudo apt-get install -y zfsutils-linux zfs-auto-snapshot")
     os.system("clear")
 
     # Create zpool
@@ -205,8 +206,8 @@ if input("\n\nIs the above configuration correct? Answer 'y' or 'n': ") == "y":
     #
     # Execute auto scrub script`
     #
-    if auto_scrub == True:
-        os.system("sudo sh auto-scrub.sh")
+    #if auto_scrub == True:
+    #    os.system("sudo sh auto-scrub.sh")
 
 
     #
