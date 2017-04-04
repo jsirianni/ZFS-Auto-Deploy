@@ -1,3 +1,27 @@
+Release notes hot fix v2.0.1 (PLEASE SEE v2.0.0 release notes
+
+ZFS auto snapshots are now working, with the following capabilities:
+  - Enable or disable zpool root level (global) snapshots
+  - Enable or disable dataset snapshots
+  
+  - Example: zpool "test" with dataset "test1"
+    - root level snapshots affect "test" and all datasets
+    - dataset snapshots affect only the dataset "test/test1"
+    
+  - It is preferable to disable global snapshots and enable snapshots at the dataset level in most cases.
+  
+ZFS auto scrub has been removed
+  - zfs on linux appears to setup auto scrub by default in /etc/cron.d
+  - Future verisons of this program will edit the default auto scrub cron job
+  
+Future features to be added
+  - Enable or disable zfs compression
+  - Edit default scrub cron job
+  - Valdate hard drive selection
+    - Prevent a hard drive from being choosen twice
+    - Prevent the OS hard drive from beeing choosen
+
+
 **********************************************************************************************
 Release notes v2.0.0
 
