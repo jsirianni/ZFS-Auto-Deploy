@@ -1,7 +1,7 @@
 zfs-auto-deploy
 Joseph Sirianni
 12-16-2016
-Version 2.0.0
+Version 2.0.1
 
 Supported OS
   - Ubuntu 16.04 w/ default kernel 4.4 (Officially tested)
