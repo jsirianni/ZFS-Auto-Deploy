@@ -34,5 +34,5 @@ def validate(comp_type):
     if comp_type == "lzjb" or "lz4" or "gzip":
         return True
 
-    if comp_type == "off" or ""
+    if comp_type == "off" or "":
         return False

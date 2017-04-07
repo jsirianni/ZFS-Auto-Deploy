@@ -251,11 +251,11 @@ if input("\n\nIs the above configuration correct? Answer 'y' or 'n': ") == "y":
 
         if input("\n\nEnable compression per dataset?: ") == "y":
             for i in datasets:
-                i = (zpool_name + "/" + i)
-                if input("\Enable compression for " + i + " dataset?: ") == "y":
-                    enable_compression.enable(zpool_name)
+                n = (zpool_name + "/" + i)
+                if input("Enable compression for " + i + " dataset?: ") == "y":
+                    enable_compression.enable(n)
                 else:
-                    enable_compression.disable(zpool_name)
+                    enable_compression.disable(n)
 
     #
     # Execute email alerts interactvie script
