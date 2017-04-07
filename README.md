@@ -17,6 +17,8 @@ Features
   - ZFS-Auto-Snapshots
     - Enable or disable global snapshots (entire zpool)
     - Enable or disable dataset snapshots, for each dataset.
+    - Hourly, Daily, Weekly, Monthly snapshots.
+    - Frequent snapshots do not work, work in progress.
   - Optional: Setup zfs email alerts
   - Optional: Enable zfs compression (LZ4 Only)
     - Default compression is lz4
