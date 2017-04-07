@@ -1,12 +1,21 @@
 Release notes v2.1.0
 
-The focus of this release was to add zfs compression
+The focus of this release was to add zfs compression.
 
-Compression can be enabled / disabled at the global pool level and for each dataset
+Compression can be enabled / disabled at the global pool level and for each dataset.
 
-Default compression method is LZ4 compression, and is highly recommended
-  - LZ4 is very fast while providing good compression
+Default compression method is LZ4 compression, and is highly recommended.
+  - LZ4 is very fast while providing good compression.
   - LZ4 will skip uncompress-able data, making it ideal for datasets with compressible and incompress-able data.
+  
+ZFS supports other compression methods (gzip for example), these will be added later.
+
+Lastly, the auto snapshot implemention has been slightly change, which has caused frequent snapshots to break.
+  - hourly snapshots work
+  - daily snapshots should work, as well as weekly and monthly. Long term testing is being done
+  - The next branch will focus on fixing frequent snapshots as well as ensuring the entire feature works as intended.
+  
+
 
 **********************************************************************************************
 
