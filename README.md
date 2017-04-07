@@ -8,8 +8,8 @@
 
 
 ### Prerequisites
-  - Package: sudo, python3
-  - Execute as root or sudo user
+  - Packages: sudo, python3
+  - Root or sudo privileges
 
 
 ### Features
