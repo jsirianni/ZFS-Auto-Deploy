@@ -3,7 +3,9 @@ cd $(dirname $0)
 
 
 # Install required packages
-sudo apt-get install -y msmtp-mta ca-certificates heirloom-mailx
+sudo apt-get install libgsasl7 libntlm0 -y
+sudo apt-get install msmtp -y
+sudo apt-get install msmtp-mta ca-certificates heirloom-mailx -y
 
 
 ##############################################################################
