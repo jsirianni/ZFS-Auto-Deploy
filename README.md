@@ -2,12 +2,15 @@
 #### Joseph Sirianni
 #### Version 2.2.0
 
+
 ### Supported OS
   - Ubuntu 16.04 w/ default kernel 4.4
+
 
 ### Prerequisites
   - Package: sudo, python3
   - Execute as root or sudo user
+
 
 ### Features
   - Interactive ZFS on Linux install
@@ -20,12 +23,14 @@
   - Optional: Enable ZFS compression (LZ4 Only)
     - Default compression is lz4
 
+
 ### Packages Installed
   - zfsutils-linux from Ubuntu repositories
   - uzip from Ubuntu repositories
   - zfs-auto-snapshots, from jsirianni/zfs-autosnapshot-packages
     - Source: zfsonlinux/zfs-auto-snapshot
   - msmtp and required dependencies
+
 
 ### How to install
   - `git clone https://github.com/jsirianni/zfs-auto-deploy.git`
@@ -36,6 +41,7 @@
     - Set to the address that will receive ZFS alerts.
   - `sudo ./install.py`
   - Follow the prompts
+
 
 ### Things to note
   - Setup will prompt for a sending email-address/password.
