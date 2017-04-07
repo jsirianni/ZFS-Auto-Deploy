@@ -1,7 +1,7 @@
 zfs-auto-deploy
 Joseph Sirianni
 12-16-2016
-Version 2.0.1
+Version 2.1.0
 
 Supported OS
   - Ubuntu 16.04 w/ default kernel 4.4 (Officially tested)
@@ -18,6 +18,8 @@ Features
     - Enable or disable global snapshots (entire zpool)
     - Enable or disable dataset snapshots, for each dataset.
   - Optional: Setup zfs email alerts
+  - Optional: Enable zfs compression
+    - Default compression is lz4
 
 
 How to install

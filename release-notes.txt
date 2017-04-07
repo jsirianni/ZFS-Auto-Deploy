@@ -1,3 +1,15 @@
+Release notes v2.1.0
+
+The focus of this release was to add zfs compression
+
+Compression can be enabled / disabled at the global pool level and for each dataset
+
+Default compression method is LZ4 compression, and is highly recommended
+  - LZ4 is very fast while providing good compression
+  - LZ4 will skip uncompress-able data, making it ideal for datasets with compressible and incompress-able data.
+
+**********************************************************************************************
+
 Release notes hot fix v2.0.1 (PLEASE SEE v2.0.0 release notes
 
 ZFS auto snapshots are now working, with the following capabilities:
@@ -12,14 +24,14 @@ ZFS auto snapshots are now working, with the following capabilities:
   
 ZFS auto scrub has been removed
   - zfs on linux appears to setup auto scrub by default in /etc/cron.d
-  - Future verisons of this program will edit the default auto scrub cron job
+  - Future versions of this program will edit the default auto scrub cron job
   
 Future features to be added
   - Enable or disable zfs compression
   - Edit default scrub cron job
-  - Valdate hard drive selection
-    - Prevent a hard drive from being choosen twice
-    - Prevent the OS hard drive from beeing choosen
+  - Validate hard drive selection
+    - Prevent a hard drive from being chosen twice
+    - Prevent the OS hard drive from being chosen
 
 
 **********************************************************************************************
@@ -27,15 +39,15 @@ Release notes v2.0.0
 
 Added install.py python script for interactive install.
 
-This script uses user defined variables to deploy ZFS. The origonal install.sh is retained for those that prefer to set a script up for specific deployments.
+This script uses user defined variables to deploy ZFS. The original install.sh is retained for those that prefer to set a script up for specific deployments.
 
-The main focus for this release is to provide flexabilty at runtime. No features are added or removed. 
+The main focus for this release is to provide flexibility at runtime. No features are added or removed. 
 
 
 Working Features (Ubuntu 16.04)
   - Installs ZFS
   - Creates ZPOOLS
-  - Multple datasets supported
+  - Multiple datasets supported
   - Mirror (raid1), Raidz1, Raidz2, Raidz3 fully supported
   - Email alrts 
   
@@ -58,7 +70,7 @@ Removed support for samba creation.
 Divided each feature up into its own script.
 
 This update focuses on cleaning up the scripts and making it more user friendly.
-It is much easier for the user to find and edit required lines to fit their enviroment.
+It is much easier for the user to find and edit required lines to fit their environment.
 
 **********************************************************************************************
 Release notes v0.5.0

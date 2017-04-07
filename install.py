@@ -175,11 +175,10 @@ if input("\n\nIs the above configuration correct? Answer 'y' or 'n': ") == "y":
 
 
     # Update repos
-    os.system("sudo add-apt-repository ppa:bob-ziuchkovski/zfs-auto-snapshot -y")
     os.system("sudo apt-get update")
 
     # Install zfs utils
-    os.system("sudo apt-get install -y zfsutils-linux zfs-auto-snapshot")
+    os.system("sudo apt-get install -y zfsutils-linux")
     os.system("clear")
 
     # Create zpool
@@ -214,6 +213,9 @@ if input("\n\nIs the above configuration correct? Answer 'y' or 'n': ") == "y":
     # Configure zfs snapshots
     #
     if enable_auto_snapshots == True:
+        # Install auto-snapshots
+        auto_snapshot.install()
+
         # Setup zpool global snapshots (all datasets)
         print("\n\nSetup zpool level (global) snapshots. Global snapshots will take a snapshot of the entire zpool (including all datasets). It is usually recomended to setup snapshots per dataset and leave global snapshots disabled")
 

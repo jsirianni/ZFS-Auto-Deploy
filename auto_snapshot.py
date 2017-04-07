@@ -8,17 +8,34 @@ import os
 #
 
 
+
+
 '''
-Call this function when you want to disable all snapshots on a given zpool
-Pass either the zpool name or the zpool/dataset as a string
+Call this function to install zfs-auto-snapshots
+'''
+def install():
+    os.system("wget https://github.com/jsirianni/zfs-autosnapshots-deb/raw/master/zfs-auto-snapshot-trustyport.deb -P /tmp")
+    os.system("sudo dpkg -i /tmp/zfs-auto-snapshot-trustyport.deb")
+    os.system("clear")
+
+
+
+'''
+Call this function when you want to disable all snapshots on a given zpool.
+Pass either the zpool name or the zpool/dataset as a string.
+
+First snapshots are set to 'true', then each snapshot type is set to false.
+This allows us to enable dataset snapshots after disabling top level snapshots.
 '''
 def disable(zpool_name):
-    os.system("sudo zfs set com.sun:auto-snapshot=false " + zpool_name)
+    os.system("sudo zfs set com.sun:auto-snapshot=true " + zpool_name)
     os.system("sudo zfs set com.sun:auto-snapshot:monthly=false " + zpool_name)
     os.system("sudo zfs set com.sun:auto-snapshot:weekly=false " + zpool_name)
     os.system("sudo zfs set com.sun:auto-snapshot:daily=false " + zpool_name)
     os.system("sudo zfs set com.sun:auto-snapshot:hourly=false " + zpool_name)
     os.system("sudo zfs set com.sun:auto-snapshot:frequent=false " + zpool_name)
+
+
 
 
 '''
