@@ -27,15 +27,14 @@
     - Source: zfsonlinux/zfs-auto-snapshot
   - msmtp and required dependencies
 
-
 ### How to install
-  - git clone https://github.com/jsirianni/zfs-auto-deploy.git
-  - cd zfs-auto-deploy
-  - chmod +x install.py
+  - `git clone https://github.com/jsirianni/zfs-auto-deploy.git`
+  - `cd zfs-auto-deploy`
+  - `chmod +x install.py`
   - If email alerts are desired, edit zed.rc
     - Configure 'ZED_EMAIL_ADDRESS'.
     - Set to the address that will receive ZFS alerts.
-  - sudo ./install.py
+  - `sudo ./install.py`
   - Follow the prompts
 
 ### Things to note
