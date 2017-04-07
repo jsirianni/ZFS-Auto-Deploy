@@ -143,7 +143,7 @@ else:
 
 if input("\nEnable ZFS Compression? ") == "y":
     enable_zfs_compression = True
-else
+else:
     enable_zfs_compression = False
 
 if input("\nEnable Gmail Email Alerts? ") == "y":
@@ -244,7 +244,7 @@ if input("\n\nIs the above configuration correct? Answer 'y' or 'n': ") == "y":
     # Configure ZFS Compression. Compression is off by default.
     #
     if enable_zfs_compression == True:
-        if input("\n\nEnable compression on entire zpool, and all datasets?: ) == "y":
+        if input("\n\nEnable compression on entire zpool, and all datasets?: " ) == "y":
             enable_compression.enable(zpool_name)
 
         if input("\n\nEnable compression per dataset?: ") == "y":
