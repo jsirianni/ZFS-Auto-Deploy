@@ -2,15 +2,14 @@
 Joseph Sirianni
 Version 2.2.0
 
-
-**Supported OS**
+### **Supported OS**
   - Ubuntu 16.04 w/ default kernel 4.4
 
-**Prerequisites**
+### **Prerequisites**
   - Package: sudo, python3
   - Execute as root or sudo user
 
-**Features**
+### **Features**
   - Interactive ZFS on Linux install
   - Supports creation of multiple datasets
   - ZFS-Auto-Snapshots
@@ -21,7 +20,7 @@ Version 2.2.0
   - Optional: Enable ZFS compression (LZ4 Only)
     - Default compression is lz4
 
-**Packages Installed**
+### **Packages Installed**
   - zfsutils-linux from Ubuntu repositories
   - uzip from Ubuntu repositories
   - zfs-auto-snapshots, from jsirianni/zfs-autosnapshot-packages
@@ -29,7 +28,7 @@ Version 2.2.0
   - msmtp and required dependencies
 
 
-**How to install**
+### **How to install**
   - git clone https://github.com/jsirianni/zfs-auto-deploy.git
   - cd zfs-auto-deploy
   - chmod +x install.py
@@ -39,7 +38,7 @@ Version 2.2.0
   - sudo ./install.py
   - Follow the prompts
 
-**Things to note**
+### **Things to note**
   - Setup will prompt for a sending email-address/password.
     - This email is what the system uses to SEND alerts.
     - You should use a throw away email because the password is stored in plain text!!!
