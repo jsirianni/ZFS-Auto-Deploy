@@ -1,3 +1,13 @@
+Release notes v2.1.1
+
+This release address zfs snapshots. Previously, frequent snapshots (every 15min, retain 4) did not work.
+
+The install function has been re-written. zfs-auto-snapshots source files are downloaded, and compiled.
+
+
+**********************************************************************************************
+
+
 Release notes v2.1.0
 
 The focus of this release was to add zfs compression.

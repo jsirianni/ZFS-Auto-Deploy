@@ -8,7 +8,7 @@ Supported OS
   - Debian / Ubuntu (Not tested, may work)
 
 Prerequisites
-  - Package: Sudo, python3
+  - Package: Sudo, python3, unzip
   - Execute as root or sudo user
 
 Features
