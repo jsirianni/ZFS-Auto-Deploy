@@ -13,8 +13,9 @@ def install():
     '''
     Call this function to install zfs-auto-snapshots
     '''
-    os.system("wget https://github.com/jsirianni/zfs-autosnapshots-deb/raw/master/zfs-auto-snapshot-trustyport.deb -P /tmp")
-    os.system("sudo dpkg -i /tmp/zfs-auto-snapshot-trustyport.deb")
+    os.system("sudo wget https://github.com/jsirianni/zfs-autosnapshot-packages/raw/master/zfs-auto-snapshot-master.zip -P /tmp")
+    os.system("sudo unzip /tmp/zfs-auto-snapshot-master.zip -d /tmp/")
+    os.system("sudo make install -C /tmp/zfs-auto-snapshot-master")
 
 
 
