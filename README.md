@@ -1,8 +1,7 @@
-#ZFS-Auto-Deploy
+## ZFS-Auto-Deploy
+Joseph Sirianni
+Version 2.2.0
 
-##Joseph Sirianni
-
-##Version 2.2.0
 
 **Supported OS**
   - Ubuntu 16.04 w/ default kernel 4.4
