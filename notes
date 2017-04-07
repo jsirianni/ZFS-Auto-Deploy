@@ -1,19 +1,17 @@
-Check
-  - test1 frequents
-  - test2 frequents and hourly
-  - test 3 hourly daily
+snapshot notes
+  - TEST env
+    - test
+      - snapshots disabled WORKING
 
-  - global disable
-  - test1 bad input
-  - test2 bad input
-  - test3 lz4
+    - test/test1
+      - frequent enabled WORKING
 
+    - test/test2
+      - hourly enabled
 
-  Result
-    - snapshots
-      - test2 hourly work
-      - test3 hourly work
-
-    - compression
-      - globally enabled lz4
-      - lz4 on all datasets, inherited.
+    - test/test3
+      - frequent WORKING
+      - hourly
+      - daily
+      - weekly
+      - monthly
