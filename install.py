@@ -20,17 +20,17 @@ print("\nUser input should be either y (yes) or n (no) unless otherwise specifie
 
 
 
-'''
-User inputs zpool name
-'''
+#
+# User inputs zpool name
+#
 print("\n\n\n\nConfigure ZFS Specifications\n")
 zpool_name = str(input("\nInput Zpool name: "))
 
 
 
-'''
-Prompt the user for the raid type
-'''
+#
+# Prompt the user for the raid type
+#
 raid_type = -1
 while raid_type < 0 or raid_type > 5:
     print("\n\nSpecify RAID type to be used")
@@ -121,9 +121,9 @@ while 1 == 1:
 
 
 
-'''
-Prompt user for feature selection. Set boolean flags for feature enable/disable
-'''
+#
+# Prompt user for feature selection. Set boolean flags for feature enable/disable
+#
 print("\n\n\n\nAnswer 'y' or 'n' to enable or disable features\n")
 
 if input("\nCreate ZFS datasets and mount points? ") == "y":
@@ -153,9 +153,9 @@ else:
 
 
 
-'''
-Print ZFS deployment summary.
-'''
+#
+# Print ZFS deployment summary.
+#
 os.system("clear")
 print("\n\n\n\nZFS Deployment Configuration Summary")
 print("\nZpool name: " + zpool_name)
@@ -177,9 +177,9 @@ if gmail_alerts == True:
 
 
 
-'''
-Prompt user for comfirmation, execute if true
-'''
+#
+# Prompt user for comfirmation, execute if true
+#
 if input("\n\nIs the above configuration correct? Answer 'y' or 'n': ") == "y":
 
     #
@@ -246,12 +246,16 @@ if input("\n\nIs the above configuration correct? Answer 'y' or 'n': ") == "y":
     if enable_zfs_compression == True:
         if input("\n\nEnable compression on entire zpool, and all datasets?: " ) == "y":
             enable_compression.enable(zpool_name)
+        else:
+            enable_compression.disable(zpool_name)
 
         if input("\n\nEnable compression per dataset?: ") == "y":
             for i in datasets:
                 i = (zpool_name + "/" + i)
                 if input("\nSetup snapshots for " + i + " dataset?: ") == "y":
                     enable_compression.enable(zpool_name)
+                else:
+                    enable_compression.disable(zpool_name)
 
     #
     # Execute email alerts interactvie script
