@@ -3,38 +3,38 @@ import os
 import auto_snapshot
 import enable_compression
 
+
+
 #
-# Install ZFS On Linux
+# Interactive ZFS on Linux setup
 #
-# Version 0.5.1
-# Joseph Sirianni
-#
+
 
 
 #
 # Print Description
 #
-print("\n\n\n\nThis script will provide a guided setup for ZFS on Linux. Feel free to modify and distribute.")
-print("\nTo contribute, visit 'https://github.com/jsirianni/zfs-auto-deploy' or email me at Joseph.Sirianni88@gmail.com")
-print("\nUser input should be either y (yes) or n (no) unless otherwise specified")
+os.system("clear")
+print("This script will provide a guided setup for ZFS on Linux. Feel free to modify and distribute.")
+print("To contribute, visit 'https://github.com/jsirianni/zfs-auto-deploy' or email me at Joseph.Sirianni88@gmail.com")
+print("User input should be either y (yes) or n (no) unless otherwise specified")
 
 
 
 #
-# User inputs zpool name
+# Get zpool name
 #
-print("\n\n\n\nConfigure ZFS Specifications\n")
 zpool_name = str(input("\nInput Zpool name: "))
 
 
 
 #
-# Prompt the user for the raid type
+# Get raid_type
 #
 raid_type = -1
 while raid_type < 0 or raid_type > 5:
-    print("\n\nSpecify RAID type to be used")
-    print("\n0 = raid0 = minimum of two drives")
+    print("\nSpecify RAID type to be used")
+    print("0 = raid0 = minimum of two drives")
     print("1 = raid1 = minimum of two drives")
     print("2 = raid10 = minimum of four drives")
     print("3 = raidz1 = minimum of three drives")
@@ -42,12 +42,17 @@ while raid_type < 0 or raid_type > 5:
     print("5 = raidz3 = minimum of five drives")
     raid_type = int(input("\nInput RAID type: "))
 
+
+
+#
+# Determine ZFS RAID type
+#
 if raid_type == 0:
     selected_raid_type = "raid0"
 elif raid_type == 1:
     selected_raid_type = "mirror"
 elif raid_type == 2:
-    selected_raid_type = "mirror" # ZFS stripes multiple mirros, aka raid10
+    selected_raid_type = "mirror" # ZFS stripes multiple vdevs, aka raid10
 elif raid_type == 3:
     selected_raid_type = "raidz1"
 elif raid_type == 4:
@@ -55,14 +60,16 @@ elif raid_type == 4:
 elif raid_type == 5:
     selected_raid_type = "raidz3"
 
+
+
 #
-# Prompt user for drives to use
+# Get drive selection
 #
 drive_set_1 = ""
 number_of_drives = 0
 
-print("\n\n\nConfigure hard drives to use for ZFS")
-print("\nEnter each drive one by one with the format shown. Example: /dev/sdb")
+print("\nConfigure hard drives to use for ZFS")
+print("Enter each drive one by one with the format shown. Example: /dev/sdb")
 print("Enter 'done' when done selecting drives")
 print("Enter 'list' if you need a list of drives")
 
@@ -115,6 +122,7 @@ while 1 == 1:
                 continue
             else:
                 break
+
         # If all validation passes, break loop.
         else:
             break
@@ -122,31 +130,26 @@ while 1 == 1:
 
 
 #
-# Prompt user for feature selection. Set boolean flags for feature enable/disable
+# Clear screan, get feature selection
 #
-print("\n\n\n\nAnswer 'y' or 'n' to enable or disable features\n")
+os.system("clear")
 
-if input("\nCreate ZFS datasets and mount points? ") == "y":
+if input("\nSetup datasets? Y/N: ") == "y":
     create_datasets = True
 else:
     create_datasets = False
 
-#if input("\nEnable ZFS Auto Scrub? ") == "y":
-#    auto_scrub = True
-#else:
-#    auto_scrub = False
-
-if input("\nEnable ZFS Auto Snapshots? ") == "y":
+if input("Setup auto snapshots? Y/N: ") == "y":
     enable_auto_snapshots = True
 else:
     enable_auto_snapshots = False
 
-if input("\nEnable ZFS Compression? ") == "y":
+if input("\nSetup Compression? Y/N: ") == "y":
     enable_zfs_compression = True
 else:
     enable_zfs_compression = False
 
-if input("\nEnable Gmail Email Alerts? ") == "y":
+if input("\nSetup Gmail Email Alerts? Y/N: ") == "y":
     gmail_alerts = True
 else:
     gmail_alerts = False
@@ -157,121 +160,134 @@ else:
 # Print ZFS deployment summary.
 #
 os.system("clear")
-print("\n\n\n\nZFS Deployment Configuration Summary")
-print("\nZpool name: " + zpool_name)
+
+print("ZFS Deployment Configuration Summary\n")
+print("Zpool name: " + zpool_name)
 print("Number of drives: " + str(number_of_drives))
 print("Drives to use: " + drive_set_1)
-print("Raid Type: " + selected_raid_type)
+print("RAID Type: " + selected_raid_type)
 
-print("\n\nZFS Enabled Features Summary")
 if create_datasets == True:
-    print("\n# Datasets will be created interactively during deployment")
-#if auto_scrub == True:
-#    print("# ZFS Auto Scrub Enabled")
+    print("Datasets will be created interactively")
+
 if enable_auto_snapshots == True:
-    print("# ZFS Auto Snapshots Enabled")
+    print("ZFS Auto Snapshots will be configured interactively")
+
 if enable_zfs_compression == True:
-    print("# ZFS Compression Enabled")
+    print("ZFS compression will be configured interactively")
+
 if gmail_alerts == True:
-    print("# Gmail Email Alerts Enabled")
+    print("Gmail Email Alerts will be configured interactively")
 
 
 
-#
-# Prompt user for comfirmation, execute if true
-#
-if input("\n\nIs the above configuration correct? Answer 'y' or 'n': ") == "y":
-
+'''
+Get comfirmation to installs
+'''
+if input("\n\nIs the above configuration correct? Y/N: ") == "y":
     #
     # Update repos and install zfsutils-linux
     #
     os.system("sudo apt-get update")
-    os.system("sudo apt-get install -y zfsutils-linux")
-    os.system("clear")
+    os.system("sudo apt-get install -y zfsutils-linux unzip")
+
+
 
     #
     # Create zpool
     #
     os.system("sudo zpool create -f " + zpool_name + " " + selected_raid_type + " " + drive_set_1)
+    os,system("clear")
+
+
 
     #
     # Create datasets and mount them
     #
     datasets = []
     while create_datasets == True:
-        dataset = str(input("\n\nEnter a dataset name for zpool " + zpool_name + ": "))
+        dataset = str(input("Enter a dataset name for zpool " + zpool_name + ": "))
         datasets.append(dataset)
         mount_dir = str(input("Enter mount point for " + zpool_name + "/" + dataset + ": "))
         os.system("sudo mkdir " + mount_dir)
         os.system("sudo zfs create -o mountpoint=" + mount_dir + " " + zpool_name + "/" + dataset)
-        if input("\nCreate another dataset? Enter 'y' or 'n': ") != "y":
+        if input("\nCreate another dataset? Y/N: ") != "y":
+            os.system("clear")
             break
 
-
-    #
-    # Execute auto scrub script`
-    #
-    #if auto_scrub == True:
-    #    os.system("sudo sh auto-scrub.sh")
 
 
     #
     # Configure zfs snapshots
     #
     if enable_auto_snapshots == True:
-        # Install auto-snapshots
+        #
+        # Call install function
+        #
         auto_snapshot.install()
 
+        #
         # Setup zpool global snapshots (all datasets)
-        print("\n\nSetup zpool level (global) snapshots. Global snapshots will take a snapshot of the entire zpool (including all datasets). It is usually recomended to setup snapshots per dataset and leave global snapshots disabled")
-
-        if input("\nSetup zpool (global) snapshots? 'y' or 'n': ") == "y":
+        #
+        if input("Setup zpool (global) snapshots? Y/N: ") == "y":
             auto_snapshot.enable(zpool_name)
         else:
             auto_snapshot.disable(zpool_name)
 
+        #
         # Setup dataset level snapshots
-        if input("\nSetup snapshots for each dataset? 'y' or 'n': ") == "y":
+        #
+        if input("Setup snapshots for each dataset? Y/N: ") == "y":
             # Iterate through dataset list and setup snapshots
             for i in datasets:
                 i = (zpool_name + "/" + i)
-                if input("\nSetup snapshots for " + i + " dataset?: ") == "y":
-                    auto_snapshot.enable(i)
+                auto_snapshot.enable(i)
+                if input("Setup snapshots for " + i + " dataset? Y/N: ") == "y":
                 else:
                     auto_snapshot.disable(i)
+
+
 
     #
     # Configure ZFS Compression. Compression is off by default.
     #
+    os.system("clear")
     if enable_zfs_compression == True:
-        if input("\n\nEnable compression on entire zpool, and all datasets?: " ) == "y":
+        if input("Enable compression on entire zpool, and all datasets? Y/N: ") == "y":
             enable_compression.enable(zpool_name)
         else:
             enable_compression.disable(zpool_name)
 
-        if input("\n\nEnable compression per dataset?: ") == "y":
+        if input("Enable compression per dataset? Y/N: ") == "y":
             for i in datasets:
                 n = (zpool_name + "/" + i)
-                if input("Enable compression for " + i + " dataset?: ") == "y":
+                if input("Enable compression for " + i + " dataset? Y/N: ") == "y":
                     enable_compression.enable(n)
                 else:
                     enable_compression.disable(n)
 
+
+
     #
     # Execute email alerts interactvie script
     #
+    os.clear("clear")
     if gmail_alerts == True:
         os.system("sudo sh gmail-alerts.sh")
+
+
 
     #
     # End Program
     #
     os.system("clear")
-    print("\nzfs-auto-desploy has finished. Please report any bugs!")
+    print("zfs-auto-desploy has finished. Please report any bugs!")
+
+
 
 #
 # User did not commit to configuration, abort`
 #
 else:
     os.system("clear")
-    print("\n\nUser aborted the setup\n")
+    print("User aborted the setup")

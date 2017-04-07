@@ -1,8 +1,34 @@
+
+Release notes v2.2.0
+
+Code cleanup. Print lines are more consistent.
+Spell checked most of the repo.
+Read me overhauled.
+
+
+Roadmap:
+  - v2.3.0
+    - Fully validated feature set
+
+  - v2.4.0
+    - Create external functions, export code from install.py
+
+  - v2.5.0
+    - Add auto-scrub function
+    - Validate auto-scrub
+
+  - v2.6.0
+    - Evaluate removing gmail-alerts.sh
+    - Instead, download from zfs-scrips repo during runtime
+    - This will prevent two copies of the same file from existing, and becoming outdated.
+
+**********************************************************************************************
+
 Release notes v2.1.1
 
-This release address zfs snapshots. Previously, frequent snapshots (every 15min, retain 4) did not work.
+This release address ZFS snapshots. Previously, frequent snapshots (every 15min, retain 4) did not work.
 
-The install function has been re-written. zfs-auto-snapshots source files are downloaded, and compiled.
+The install function has been re-written. ZFS-auto-snapshots source files are downloaded, and compiled.
 
 
 **********************************************************************************************
@@ -10,21 +36,21 @@ The install function has been re-written. zfs-auto-snapshots source files are do
 
 Release notes v2.1.0
 
-The focus of this release was to add zfs compression.
+The focus of this release was to add ZFS compression.
 
 Compression can be enabled / disabled at the global pool level and for each dataset.
 
 Default compression method is LZ4 compression, and is highly recommended.
   - LZ4 is very fast while providing good compression.
-  - LZ4 will skip uncompress-able data, making it ideal for datasets with compressible and incompress-able data.
-  
+  - LZ4 will skip uncompress-able data, making it ideal for datasets with compressible and incompressible data.
+
 ZFS supports other compression methods (gzip for example), these will be added later.
 
-Lastly, the auto snapshot implemention has been slightly change, which has caused frequent snapshots to break.
+Lastly, the auto snapshot implementation has been slightly change, which has caused frequent snapshots to break.
   - hourly snapshots work
   - daily snapshots should work, as well as weekly and monthly. Long term testing is being done
   - The next branch will focus on fixing frequent snapshots as well as ensuring the entire feature works as intended.
-  
+
 
 
 **********************************************************************************************
@@ -34,19 +60,19 @@ Release notes hot fix v2.0.1 (PLEASE SEE v2.0.0 release notes
 ZFS auto snapshots are now working, with the following capabilities:
   - Enable or disable zpool root level (global) snapshots
   - Enable or disable dataset snapshots
-  
+
   - Example: zpool "test" with dataset "test1"
     - root level snapshots affect "test" and all datasets
     - dataset snapshots affect only the dataset "test/test1"
-    
+
   - It is preferable to disable global snapshots and enable snapshots at the dataset level in most cases.
-  
+
 ZFS auto scrub has been removed
-  - zfs on linux appears to setup auto scrub by default in /etc/cron.d
+  - ZFS on Linux appears to setup auto scrub by default in /etc/cron.d
   - Future versions of this program will edit the default auto scrub cron job
-  
+
 Future features to be added
-  - Enable or disable zfs compression
+  - Enable or disable ZFS compression
   - Edit default scrub cron job
   - Validate hard drive selection
     - Prevent a hard drive from being chosen twice
@@ -60,7 +86,7 @@ Added install.py python script for interactive install.
 
 This script uses user defined variables to deploy ZFS. The original install.sh is retained for those that prefer to set a script up for specific deployments.
 
-The main focus for this release is to provide flexibility at runtime. No features are added or removed. 
+The main focus for this release is to provide flexibility at runtime. No features are added or removed.
 
 
 Working Features (Ubuntu 16.04)
@@ -68,8 +94,8 @@ Working Features (Ubuntu 16.04)
   - Creates ZPOOLS
   - Multiple datasets supported
   - Mirror (raid1), Raidz1, Raidz2, Raidz3 fully supported
-  - Email alrts 
-  
+  - Email alerts
+
 Broken Features (to be fixed in later release)
   - ZFS auto-snapshots
     - The repo appears to be broken
@@ -80,7 +106,7 @@ Broken Features (to be fixed in later release)
     - Future release will allow for striping
 
 New prerequisites
-  - Python3 must be installed 
+  - Python3 must be installed
 
 **********************************************************************************************
 Release notes v1.0.0
@@ -94,20 +120,20 @@ It is much easier for the user to find and edit required lines to fit their envi
 **********************************************************************************************
 Release notes v0.5.0
 
-Pool creation is hardcoded, change lines 18-20
-Zpool snapshot configuration is hardcoded, lines 24-30
+Pool creation is hard-coded, change lines 18-20
+Zpool snapshot configuration is hard-coded, lines 24-30
 Zpool cron job set for 3am Sunday. Change on lines 38 and 40 to reflect name of pool and time.
-Samba Configuration is hardcoded, adjust lines 45 - 55
+Samba Configuration is hard-coded, adjust lines 45 - 55
 
 This release focuses on making auto snapshots and auto scrub working as well as some misc. code cleanup. Expect version 1.0 to offer variables either through prompts or a configuration section. My goal is for version 1.0 to offer a flexible install to match environments with varying number of drives and pool requirements as allowing the user to easily set variables such as ‘samba user’ and ‘samba password’.
 
 **********************************************************************************************
 Release notes v0.0.1
 
-The purpose of this script is to make installing ZoL (ZFS on Linux), SAMBA (native file sharing for Windows enviroments)
+The purpose of this script is to make installing ZoL (ZFS on Linux), SAMBA (native file sharing for Windows environments)
 and email alerts much easier. Currently the script is hardcoded to fit specific use cases, however in the future I plan
-to add the abilty to configure a "setup" file with variables such as "hostname, zfs raid type, numbers of drives, samba
+to add the ability to configure a "setup" file with variables such as "hostname, ZFS raid type, numbers of drives, samba
 user name, email alert username, and so on".
 
-The current version is v0.0.1. The scirpt fits a specific use case that I currently need but could easily be adopted to
-fit other enviroments. It simply makes deploying ZFS + SAMBA with email alerts much easier than going command by command.
+The current version is v0.0.1. The script fits a specific use case that I currently need but could easily be adopted to
+fit other environments. It simply makes deploying ZFS + SAMBA with email alerts much easier than going command by command.

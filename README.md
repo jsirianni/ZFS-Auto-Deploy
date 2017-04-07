@@ -1,42 +1,50 @@
-zfs-auto-deploy
-Joseph Sirianni
-12-16-2016
-Version 2.1.0
+## ZFS-Auto-Deploy
+#### Joseph Sirianni
+#### Version 2.2.0
 
-Supported OS
-  - Ubuntu 16.04 w/ default kernel 4.4 (Officially tested)
-  - Debian / Ubuntu (Not tested, may work)
 
-Prerequisites
-  - Package: Sudo, python3, unzip
-  - Execute as root or sudo user
+### Supported OS
+  - Ubuntu 16.04 w/ default kernel 4.4
 
-Features
-  - Interactive zfs on linux install
+
+### Prerequisites
+  - Packages: sudo, python3
+  - Root or sudo privileges
+
+
+### Features
+  - Interactive ZFS on Linux install
   - Supports creation of multiple datasets
   - ZFS-Auto-Snapshots
-    - Enable or disable global snapshots (entire zpool)
-    - Enable or disable dataset snapshots, for each dataset.
-    - Hourly, Daily, Weekly, Monthly snapshots.
-    - Frequent snapshots do not work, work in progress.
-  - Optional: Setup zfs email alerts
-  - Optional: Enable zfs compression (LZ4 Only)
+    - Enable or disable top level snapshots (zpool and all datasets)
+    - Enable or disable snapshots, for each dataset.
+    - Frequent, Hourly, Daily, Weekly, Monthly snapshots.
+  - Optional: Setup ZFS email alerts
+  - Optional: Enable ZFS compression (LZ4 Only)
     - Default compression is lz4
 
 
-How to install
-  - Git clone the repo to a directory of your choice (likely /tmp)
-  - Make install.py executable with "chmod +x install.py"
-  - There is one file that need to be edited
-     - zed.rc
-        - Configure 'ZED_EMAIL_ADDRESS'
-        - Set to the address that should recieve ZFS alerts
+### Packages Installed
+  - zfsutils-linux from Ubuntu repositories
+  - uzip from Ubuntu repositories
+  - zfs-auto-snapshots, from jsirianni/zfs-autosnapshot-packages
+    - Source: zfsonlinux/zfs-auto-snapshot
+  - msmtp and required dependencies
 
-  - Execute 'install.py'
 
-  - Please note the following
-      - email alerts sending email address
-          - this email is what the system uses to SEND alerts
-              - you should use a throw away / dumby email because the password is stored in plain text!!!
+### How to install
+  - `git clone https://github.com/jsirianni/zfs-auto-deploy.git`
+  - `cd zfs-auto-deploy`
+  - `chmod +x install.py`
+  - If email alerts are desired, edit zed.rc
+    - Configure 'ZED_EMAIL_ADDRESS'.
+    - Set to the address that will receive ZFS alerts.
+  - `sudo ./install.py`
+  - Follow the prompts
 
-      - It is important to note that the email specified in zed.rc can be a real email address. That is different from the sending email used by gmail-alerts.sh
+
+### Things to note
+  - Setup will prompt for a sending email-address/password.
+    - This email is what the system uses to SEND alerts.
+    - You should use a throw away email because the password is stored in plain text!!!
+      - It is important to note that the email specified in zed.rc can be a real email address, as it is the recipient.
