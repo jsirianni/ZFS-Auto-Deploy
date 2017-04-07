@@ -7,12 +7,17 @@ import os
 # Pass a zpool name and zpool dataset name as strings
 #
 
+
+
+
 '''
 Call this function to install zfs-auto-snapshots
 '''
 def install():
     os.system("wget https://github.com/jsirianni/zfs-autosnapshots-deb/raw/master/zfs-auto-snapshot-trustyport.deb -P /tmp")
-    os.system("dpkg -i /tmp/zfs-auto-snapshot-trustyport.deb")
+    os.system("sudo dpkg -i /tmp/zfs-auto-snapshot-trustyport.deb")
+
+
 
 
 '''
@@ -29,6 +34,8 @@ def disable(zpool_name):
     os.system("sudo zfs set com.sun:auto-snapshot:daily=false " + zpool_name)
     os.system("sudo zfs set com.sun:auto-snapshot:hourly=false " + zpool_name)
     os.system("sudo zfs set com.sun:auto-snapshot:frequent=false " + zpool_name)
+
+
 
 
 '''
