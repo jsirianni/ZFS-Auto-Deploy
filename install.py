@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 import os
 import auto_snapshot
+import enable_compression
 
 #
 # Install ZFS On Linux
@@ -18,15 +19,17 @@ print("\nTo contribute, visit 'https://github.com/jsirianni/zfs-auto-deploy' or 
 print("\nUser input should be either y (yes) or n (no) unless otherwise specified")
 
 
+
 #
-# Prompt user for zpool name
+# User inputs zpool name
 #
 print("\n\n\n\nConfigure ZFS Specifications\n")
 zpool_name = str(input("\nInput Zpool name: "))
 
 
+
 #
-# Prompt user for RAID type
+# Prompt the user for the raid type
 #
 raid_type = -1
 while raid_type < 0 or raid_type > 5:
@@ -51,7 +54,6 @@ elif raid_type == 4:
     selected_raid_type = "raiz2"
 elif raid_type == 5:
     selected_raid_type = "raidz3"
-
 
 #
 # Prompt user for drives to use
@@ -118,6 +120,7 @@ while 1 == 1:
             break
 
 
+
 #
 # Prompt user for feature selection. Set boolean flags for feature enable/disable
 #
@@ -138,10 +141,16 @@ if input("\nEnable ZFS Auto Snapshots? ") == "y":
 else:
     enable_auto_snapshots = False
 
+if input("\nEnable ZFS Compression? ") == "y":
+    enable_zfs_compression = True
+else:
+    enable_zfs_compression = False
+
 if input("\nEnable Gmail Email Alerts? ") == "y":
     gmail_alerts = True
 else:
     gmail_alerts = False
+
 
 
 #
@@ -161,33 +170,30 @@ if create_datasets == True:
 #    print("# ZFS Auto Scrub Enabled")
 if enable_auto_snapshots == True:
     print("# ZFS Auto Snapshots Enabled")
+if enable_zfs_compression == True:
+    print("# ZFS Compression Enabled")
 if gmail_alerts == True:
     print("# Gmail Email Alerts Enabled")
 
 
+
 #
-#  Prompt user for comfirmation, execute if true
+# Prompt user for comfirmation, execute if true
 #
 if input("\n\nIs the above configuration correct? Answer 'y' or 'n': ") == "y":
-    #
-    # Run ZFS installer and create zpool
-    #
 
-
-    # Update repos
+    #
+    # Update repos and install zfsutils-linux
+    #
     os.system("sudo apt-get update")
-
-    # Install zfs utils
     os.system("sudo apt-get install -y zfsutils-linux")
     os.system("clear")
 
+    #
     # Create zpool
+    #
     os.system("sudo zpool create -f " + zpool_name + " " + selected_raid_type + " " + drive_set_1)
 
-
-    #
-    # Install features
-    #
     #
     # Create datasets and mount them
     #
@@ -229,11 +235,27 @@ if input("\n\nIs the above configuration correct? Answer 'y' or 'n': ") == "y":
             # Iterate through dataset list and setup snapshots
             for i in datasets:
                 i = (zpool_name + "/" + i)
-                if input("\nSetup snapshots for " + i + " dataset? ") == "y":
+                if input("\nSetup snapshots for " + i + " dataset?: ") == "y":
                     auto_snapshot.enable(i)
                 else:
                     auto_snapshot.disable(i)
 
+    #
+    # Configure ZFS Compression. Compression is off by default.
+    #
+    if enable_zfs_compression == True:
+        if input("\n\nEnable compression on entire zpool, and all datasets?: " ) == "y":
+            enable_compression.enable(zpool_name)
+        else:
+            enable_compression.disable(zpool_name)
+
+        if input("\n\nEnable compression per dataset?: ") == "y":
+            for i in datasets:
+                n = (zpool_name + "/" + i)
+                if input("Enable compression for " + i + " dataset?: ") == "y":
+                    enable_compression.enable(n)
+                else:
+                    enable_compression.disable(n)
 
     #
     # Execute email alerts interactvie script
