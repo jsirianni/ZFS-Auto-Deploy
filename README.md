@@ -1,6 +1,6 @@
 ## ZFS-Auto-Deploy
 #### Joseph Sirianni
-#### Version 2.2.0
+#### Version 0.2.0
 
 
 ### Supported OS
@@ -14,6 +14,12 @@
 
 ### Features
   - Interactive ZFS on Linux install
+  - Supports several RAID configurations
+    - Mirror VDEV
+    - Striped VDEV
+    - RAIDZ1
+    - RAIDZ2
+    - RAIDZ3
   - Supports creation of multiple datasets
   - ZFS-Auto-Snapshots
     - Enable or disable top level snapshots (zpool and all datasets)

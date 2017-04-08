@@ -1,5 +1,5 @@
 
-Release notes v2.2.0
+Release notes v0.2.0
 
 Code cleanup. Print lines are more consistent.
 Spell checked most of the repo.
@@ -7,24 +7,27 @@ Read me overhauled.
 
 
 Roadmap:
-  - v2.3.0
     - Fully validated feature set
+    - v0.3.0
 
-  - v2.4.0
+  - v0.4.0
     - Create external functions, export code from install.py
 
-  - v2.5.0
+  - v0.5.0
     - Add auto-scrub function
     - Validate auto-scrub
 
-  - v2.6.0
+  - v0.6.0
+    - Add support for RAID10
+
+  - v0.7.0
     - Evaluate removing gmail-alerts.sh
     - Instead, download from zfs-scrips repo during runtime
     - This will prevent two copies of the same file from existing, and becoming outdated.
 
 **********************************************************************************************
 
-Release notes v2.1.1
+Release notes v0.1.1
 
 This release address ZFS snapshots. Previously, frequent snapshots (every 15min, retain 4) did not work.
 
@@ -34,7 +37,7 @@ The install function has been re-written. ZFS-auto-snapshots source files are do
 **********************************************************************************************
 
 
-Release notes v2.1.0
+Release notes v0.1.0
 
 The focus of this release was to add ZFS compression.
 
@@ -55,7 +58,7 @@ Lastly, the auto snapshot implementation has been slightly change, which has cau
 
 **********************************************************************************************
 
-Release notes hot fix v2.0.1 (PLEASE SEE v2.0.0 release notes
+Release notes hot fix v0.0.9 (PLEASE SEE v.0.8 release notes
 
 ZFS auto snapshots are now working, with the following capabilities:
   - Enable or disable zpool root level (global) snapshots
@@ -80,7 +83,7 @@ Future features to be added
 
 
 **********************************************************************************************
-Release notes v2.0.0
+Release notes v0.0.7
 
 Added install.py python script for interactive install.
 
@@ -109,7 +112,7 @@ New prerequisites
   - Python3 must be installed
 
 **********************************************************************************************
-Release notes v1.0.0
+Release notes v0.0.6
 
 Removed support for samba creation.
 Divided each feature up into its own script.
@@ -118,7 +121,7 @@ This update focuses on cleaning up the scripts and making it more user friendly.
 It is much easier for the user to find and edit required lines to fit their environment.
 
 **********************************************************************************************
-Release notes v0.5.0
+Release notes v0.0.5
 
 Pool creation is hard-coded, change lines 18-20
 Zpool snapshot configuration is hard-coded, lines 24-30
