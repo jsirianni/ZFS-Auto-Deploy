@@ -241,8 +241,8 @@ if input("\n\nIs the above configuration correct? Y/N: ") == "y":
             # Iterate through dataset list and setup snapshots
             for i in datasets:
                 i = (zpool_name + "/" + i)
-                auto_snapshot.enable(i)
                 if input("Setup snapshots for " + i + " dataset? Y/N: ") == "y":
+                    auto_snapshot.enable(i)
                 else:
                     auto_snapshot.disable(i)
 
