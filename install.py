@@ -17,7 +17,6 @@ import enable_compression
 os.system("clear")
 print("This script will provide a guided setup for ZFS on Linux. Feel free to modify and distribute.")
 print("To contribute, visit 'https://github.com/jsirianni/zfs-auto-deploy' or email me at Joseph.Sirianni88@gmail.com")
-print("User input should be either y (yes) or n (no) unless otherwise specified")
 
 
 
@@ -225,6 +224,7 @@ if input("\n\nIs the above configuration correct? Y/N: ") == "y":
         # Call install function
         #
         auto_snapshot.install()
+        os.system("clear")
 
         #
         # Setup zpool global snapshots (all datasets)
@@ -271,7 +271,7 @@ if input("\n\nIs the above configuration correct? Y/N: ") == "y":
     #
     # Execute email alerts interactvie script
     #
-    os.clear("clear")
+    os.system("clear")
     if gmail_alerts == True:
         os.system("sudo sh gmail-alerts.sh")
 
