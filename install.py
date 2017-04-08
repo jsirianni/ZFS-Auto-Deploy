@@ -24,7 +24,7 @@ print("User input should be either y (yes) or n (no) unless otherwise specified"
 #
 # Get zpool name
 #
-zpool_name = str(input("\nInput Zpool name: "))
+zpool_name = str(input("\nInput zpool name: "))
 
 
 
@@ -144,12 +144,12 @@ if input("Setup auto snapshots? Y/N: ") == "y":
 else:
     enable_auto_snapshots = False
 
-if input("\nSetup Compression? Y/N: ") == "y":
+if input("Setup Compression? Y/N: ") == "y":
     enable_zfs_compression = True
 else:
     enable_zfs_compression = False
 
-if input("\nSetup Gmail Email Alerts? Y/N: ") == "y":
+if input("Setup Gmail Email Alerts? Y/N: ") == "y":
     gmail_alerts = True
 else:
     gmail_alerts = False
@@ -197,7 +197,7 @@ if input("\n\nIs the above configuration correct? Y/N: ") == "y":
     # Create zpool
     #
     os.system("sudo zpool create -f " + zpool_name + " " + selected_raid_type + " " + drive_set_1)
-    os,system("clear")
+    os.system("clear")
 
 
 
