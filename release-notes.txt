@@ -1,4 +1,13 @@
+Release notes v0.3.0
 
+All features have been fully validated
+
+RAIDZ1,2,3 and mirror vdevs (raid1) working
+Snapshots working
+Compression working
+Email alerts working
+
+**********************************************************************************************
 Release notes v0.2.0
 
 Code cleanup. Print lines are more consistent.
