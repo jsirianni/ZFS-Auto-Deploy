@@ -26,7 +26,7 @@
     - Frequent, Hourly, Daily, Weekly, Monthly snapshots.
   - Optional: Setup ZFS email alerts
   - Optional: Enable ZFS compression (LZ4 Only)
-    - Default compression is lz4
+
 
 
 ### Packages Installed
@@ -55,4 +55,5 @@
       - It is important to note that the email specified in zed.rc can be a real email address, as it is the recipient.
   
   - Striped VDEVs (RAID0, RAID10) will be supported in a later release.
+  - LZ4 compression is used by default. Other compression options will be available in a later release.
     
