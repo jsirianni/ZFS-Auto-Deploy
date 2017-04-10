@@ -1,6 +1,6 @@
 ## ZFS-Auto-Deploy
 #### Joseph Sirianni
-#### Version 2.2.0
+#### Version 0.3.0
 
 
 ### Supported OS
@@ -14,6 +14,11 @@
 
 ### Features
   - Interactive ZFS on Linux install
+  - Supports several RAID configurations
+    - Mirror VDEV (RAID 1)
+    - RAIDZ1
+    - RAIDZ2
+    - RAIDZ3
   - Supports creation of multiple datasets
   - ZFS-Auto-Snapshots
     - Enable or disable top level snapshots (zpool and all datasets)
@@ -21,7 +26,7 @@
     - Frequent, Hourly, Daily, Weekly, Monthly snapshots.
   - Optional: Setup ZFS email alerts
   - Optional: Enable ZFS compression (LZ4 Only)
-    - Default compression is lz4
+
 
 
 ### Packages Installed
@@ -48,3 +53,7 @@
     - This email is what the system uses to SEND alerts.
     - You should use a throw away email because the password is stored in plain text!!!
       - It is important to note that the email specified in zed.rc can be a real email address, as it is the recipient.
+  
+  - Striped VDEVs (RAID0, RAID10) will be supported in a later release.
+  - LZ4 compression is used by default. Other compression options will be available in a later release.
+    
