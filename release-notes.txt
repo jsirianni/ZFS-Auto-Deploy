@@ -7,8 +7,9 @@ Read me overhauled.
 
 
 Roadmap:
+  - v0.3.0
     - Fully validated feature set
-    - v0.3.0
+
 
   - v0.4.0
     - Create external functions, export code from install.py
