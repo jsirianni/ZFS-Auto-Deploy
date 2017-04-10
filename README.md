@@ -15,7 +15,7 @@
 ### Features
   - Interactive ZFS on Linux install
   - Supports several RAID configurations
-    - Mirror VDEV
+    - Mirror VDEV (RAID 1)
     - RAIDZ1
     - RAIDZ2
     - RAIDZ3
@@ -54,5 +54,5 @@
     - You should use a throw away email because the password is stored in plain text!!!
       - It is important to note that the email specified in zed.rc can be a real email address, as it is the recipient.
   
-  - Striped vDevs (RAID0, RAID10) will be supported in a later release.
+  - Striped VDEVs (RAID0, RAID10) will be supported in a later release.
     
