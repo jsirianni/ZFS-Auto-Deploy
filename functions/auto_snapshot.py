@@ -2,8 +2,7 @@
 import os
 
 #
-# This script interactively sets up zfs snapshots
-# Pass a zpool name or zpool dataset name as strings
+# This file contains functions for installing and configuring ZFS snapshots
 #
 
 
