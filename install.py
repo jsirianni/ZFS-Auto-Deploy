@@ -182,7 +182,7 @@ if gmail_alerts == True:
 
 
 '''
-Get comfirmation to installs
+Get comfirmation to install
 '''
 if input("\n\nIs the above configuration correct? Y/N: ") == "y":
     #
