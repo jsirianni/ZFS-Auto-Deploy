@@ -1,7 +1,8 @@
 #!/usr/bin/env python3
 import os
-import auto_snapshot
-import enable_compression
+from functions import auto_snapshot
+from functions import enable_compression
+from functions import validation
 
 
 

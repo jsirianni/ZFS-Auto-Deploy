@@ -2,8 +2,7 @@
 import os
 
 #
-# This script enables or disables zfs compression
-# Pass a zpool name or zpool dataset name as strings
+# This file contains functions for enabling and disabling ZFS compression
 #
 
 

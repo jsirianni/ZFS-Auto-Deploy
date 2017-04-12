@@ -1,6 +1,6 @@
 ## ZFS-Auto-Deploy
 #### Joseph Sirianni
-#### Version 0.3.0
+#### Version 0.3.1
 
 
 ### Supported OS
@@ -53,7 +53,6 @@
     - This email is what the system uses to SEND alerts.
     - You should use a throw away email because the password is stored in plain text!!!
       - It is important to note that the email specified in zed.rc can be a real email address, as it is the recipient.
-  
+
   - Striped VDEVs (RAID0, RAID10) will be supported in a later release.
   - LZ4 compression is used by default. Other compression options will be available in a later release.
-    
